@@ -15,12 +15,20 @@ function show_price($ex, $p) {
 	echo '<br>';
 }
 
-$ex1_data = get_data('https://www.cryptopia.co.nz/api/GetMarket/SHA_BTC');
-$ex2_data = get_data('https://tradesatoshi.com/api/public/getmarketsummary?market=SHA_BTC');
 
-$p1 = ($ex1_data != null) ? $ex1_data->Data->LastPrice : 100;
-$p2 = ($ex2_data != null) ? $ex2_data->result->last : 100;
+if (isset($_GET['market'])) {
 
-show_price('Cryptopia', $p1);
-show_price('TradeSatoshi', $p2);
+	$m = $_GET['market'];
+
+	$ex1_data = get_data('https://www.cryptopia.co.nz/api/GetMarket/' . $m);
+	$ex2_data = get_data('https://tradesatoshi.com/api/public/getmarketsummary?market=' . $m);
+
+	$p1 = ($ex1_data != null) ? $ex1_data->Data->LastPrice : 100;
+	$p2 = ($ex2_data != null) ? $ex2_data->result->last : 100;
+
+	show_price('Cryptopia', $p1);
+	show_price('TradeSatoshi', $p2);
+
+}
+
 
