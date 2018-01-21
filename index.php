@@ -1,11 +1,12 @@
 <?php
 
 function get_data($url) {
-	$client = curl_init($url);
-	curl_setopt($client, CURLOPT_SSL_VERIFYPEER, 0);
-	curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
-	$response = curl_exec($client);
-	curl_close($client);
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+	$response = curl_exec($ch);
+	curl_close($ch);
 	return json_decode($response);
 }
 
